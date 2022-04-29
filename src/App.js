@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [dataSet, setDataSet] = useState();
+
+  useEffect(() => {
+    fetch(
+      `https://geo.ipify.org/api/v2/country?apiKey=${process.env.REACT_APP_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setDataSet(data);
+      });
+  }, []);
+
+  console.log(dataSet);
+
+  return <div className="App"></div>;
 }
 
 export default App;
